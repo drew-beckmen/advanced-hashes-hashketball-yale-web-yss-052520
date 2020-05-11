@@ -183,3 +183,13 @@ def player_numbers(name)
     end
   end 
 end
+
+def player_stats(name)
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      if individual_players[:player_name] == name 
+        return individual_players.delete(:player_name)
+      end 
+    end 
+  end 
+end 
