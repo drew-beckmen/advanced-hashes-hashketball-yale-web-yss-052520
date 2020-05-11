@@ -189,7 +189,7 @@ def player_stats(name)
     team[:players].each do |individual_players|
       if individual_players[:player_name] == name
         individual_players.delete(:player_name)
-        return individual_players
+        puts individual_players
       end
     end
   end
