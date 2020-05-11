@@ -209,5 +209,5 @@ def largest_shoe_size
 end
 
 def big_shoe_rebounds
-  return player_stats(largest_shoe_size)[:rebounds]
+  player_stats(largest_shoe_size)[:rebounds]
 end
