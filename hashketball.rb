@@ -223,4 +223,14 @@ def most_points_scored
   players_with_points.max_by{|player, points| points}[0]
 end
 
-puts most_points_scored
+#Helper function is given a hash with all info on a team and returns sum of all points
+def sum_points(team_hash)
+  point_total = 0
+  team_hash[:players].each do |individual_players|
+    point_total += individual_players[:points]
+  end
+end
+
+def winning_team
+
+end
