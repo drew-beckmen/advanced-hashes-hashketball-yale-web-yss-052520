@@ -128,12 +128,13 @@ end
 
 # Write code here
 def num_points_scored(player_name)
+  points = []
   game_hash.each do |key, value|
     value.each do |attribute, val|
       if attribute == :players
         val.each do |player|
           points = player.select {|x| x[player_name]}
-        end 
+        end
       end
     end
   end
