@@ -133,8 +133,8 @@ def num_points_scored(player_name)
     value.each do |attribute, val|
       if attribute == :players
         val.each do |player|
-          binding.pry
-          puts player.select {|x| x[player_name]}
+          if player[player_name] != nill
+            player[player_name][points]
         end
       end
     end
