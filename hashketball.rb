@@ -173,9 +173,13 @@ def get_number(player)
   (0...player.size).each do |i|
     players << player[i][:number]
   end
-  players 
+  players
 end
 
-def player_numbers(team_name)
-
+def player_numbers(name)
+  game_hash.each do |home_away, team|
+    if team[:team_name] == name
+      return get_number(team[:players])
+    end
+  end 
 end
