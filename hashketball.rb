@@ -159,3 +159,10 @@ def team_colors(team_name)
     end
   end
 end
+
+def team_names
+  arr_names = []
+  arr_names << game_hash[:home][:team_name]
+  arr_names << game_hash[:away][:team_name]
+  arr_names 
+end
