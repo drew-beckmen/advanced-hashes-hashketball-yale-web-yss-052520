@@ -135,6 +135,7 @@ def num_points_scored(player_name)
         val.each do |player|
           if player[player_name] != nill
             player[player_name][points]
+          end 
         end
       end
     end
