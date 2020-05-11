@@ -135,6 +135,7 @@ def num_points_scored(player_name)
       if attribute == :players
         val.each do |player|
           if player[player_name] != nil
+            binding.pry
             points = player[player_name][:points]
           end
         end
