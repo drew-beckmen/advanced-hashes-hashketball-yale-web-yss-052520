@@ -251,7 +251,8 @@ def player_names
 end
 
 def player_with_longest_name
-  player_names.max {|a, b| a.length > b.length }
+  names = player_names
+  names.max {|a, b| a.length > b.length }
 end
 
 puts player_with_longest_name
