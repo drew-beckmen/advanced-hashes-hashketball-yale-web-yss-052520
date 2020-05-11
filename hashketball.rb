@@ -189,9 +189,10 @@ def player_stats(name)
   game_hash.each do |home_away, team|
     team[:players].each do |individual_players|
       if individual_players[:player_name] == name
+        binding.pry
         hash = individual_players
         hash.delete(:player_name)
-        return hash 
+        return hash
       end
     end
   end
