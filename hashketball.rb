@@ -235,8 +235,17 @@ end
 def winning_team
   if sum_points(game_hash[:home]) > sum_points(game_hash[:away])
     return game_hash[:home][:team_name]
-  end 
+  end
   game_hash[:away][:team_name]
 end
 
-puts winning_team
+#Helper function returns array with all player names
+def player_names
+  all_names = []
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      all_names << individual_players[:player_name]
+    end
+  end
+  all_names 
+end
