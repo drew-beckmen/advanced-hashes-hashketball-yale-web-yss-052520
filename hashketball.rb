@@ -164,5 +164,18 @@ def team_names
   arr_names = []
   arr_names << game_hash[:home][:team_name]
   arr_names << game_hash[:away][:team_name]
-  arr_names 
+  arr_names
+end
+
+# Define a helper method to extract player numbers given an array of hashes
+def get_number(player)
+  players = []
+  (0...player.size).each do |i|
+    players << player[i][:number]
+  end
+  players 
+end
+
+def player_numbers(team_name)
+
 end
