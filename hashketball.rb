@@ -129,19 +129,15 @@ end
 
 # Write code here
 def num_points_scored(player_name)
-  points = 0
   game_hash.each do |key, value|
     value.each do |attribute, val|
       if attribute == :players
         val.each do |player|
-          binding.pry
-          if player[player_name] != nil
-            binding.pry
-            points = player[player_name][:points]
+          if player[:player_name] == player_name
+            player[:points]
           end
         end
       end
     end
   end
-  points
 end
