@@ -205,7 +205,7 @@ def largest_shoe_size
       players_with_shoe[name] = shoe
     end
   end
-  pp players_with_shoe
+  return players_with_shoe.max_by {|player, shoe| shoe}
 end
 
 def big_shoe_rebounds
