@@ -220,7 +220,7 @@ def most_points_scored
       players_with_points[name] = points
     end
   end
-  players_with.points.max_by{|player, points| points}[0]
+  players_with_points.max_by{|player, points| points}[0]
 end
 
 puts most_points_scored
