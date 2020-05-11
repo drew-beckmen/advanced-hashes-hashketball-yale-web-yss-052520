@@ -210,3 +210,17 @@ end
 def big_shoe_rebounds
   player_stats(largest_shoe_size)[:rebounds]
 end
+
+def most_points_scored
+  players_with_points = {}
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      name = individual_players[:player_name]
+      points = individual_players[:points]
+      players_with_points[name] = points
+    end
+  end
+  players_with.points.max_by{|player, points| points}[0]
+end
+
+puts most_points_scored
