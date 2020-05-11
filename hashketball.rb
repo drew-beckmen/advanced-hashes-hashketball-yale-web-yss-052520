@@ -181,15 +181,15 @@ def player_numbers(name)
     if team[:team_name] == name
       return get_number(team[:players])
     end
-  end 
+  end
 end
 
 def player_stats(name)
   game_hash.each do |home_away, team|
     team[:players].each do |individual_players|
-      if individual_players[:player_name] == name 
+      if individual_players[:player_name] == name
         return individual_players.delete(:player_name)
-      end 
+      end
     end 
-  end 
-end 
+  end
+end
