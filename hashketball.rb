@@ -229,6 +229,7 @@ def sum_points(team_hash)
   team_hash[:players].each do |individual_players|
     point_total += individual_players[:points]
   end
+  point_total
 end
 
 def winning_team
