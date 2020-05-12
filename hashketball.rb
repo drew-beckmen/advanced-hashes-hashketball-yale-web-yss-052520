@@ -1,3 +1,4 @@
+require 'pry'
 # Write your code below game_hash
 def game_hash
   {
@@ -127,3 +128,145 @@ def game_hash
 end
 
 # Write code here
+def num_points_scored(player_name)
+  game_hash.each do |key, value|
+    value.each do |attribute, val|
+      if attribute == :players
+        val.each do |player|
+          if player[:player_name] == player_name
+            return player[:points]
+          end
+        end
+      end
+    end
+  end
+end
+
+def shoe_size(name)
+  game_hash.each do |team, attributes|
+    attributes[:players].each do |player|
+      if player[:player_name] == name
+        return player[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(team_name)
+  game_hash.each do |team, attributes|
+    if attributes[:team_name] == team_name
+      return attributes[:colors]
+    end
+  end
+end
+
+def team_names
+  arr_names = []
+  arr_names << game_hash[:home][:team_name]
+  arr_names << game_hash[:away][:team_name]
+  arr_names
+end
+
+# Define a helper method to extract player numbers given an array of hashes
+def get_number(player)
+  players = []
+  (0...player.size).each do |i|
+    players << player[i][:number]
+  end
+  players
+end
+
+def player_numbers(name)
+  game_hash.each do |home_away, team|
+    if team[:team_name] == name
+      return get_number(team[:players])
+    end
+  end
+end
+
+def player_stats(name)
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      if individual_players[:player_name] == name
+        return individual_players
+      end
+    end
+  end
+end
+
+# Return player name with largest shoe size
+def largest_shoe_size
+  players_with_shoe = {}
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      name = individual_players[:player_name]
+      shoe = individual_players[:shoe]
+      players_with_shoe[name] = shoe
+    end
+  end
+  players_with_shoe.max_by{|player, shoe| shoe}[0]
+end
+
+def big_shoe_rebounds
+  player_stats(largest_shoe_size)[:rebounds]
+end
+
+def most_points_scored
+  players_with_points = {}
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      name = individual_players[:player_name]
+      points = individual_players[:points]
+      players_with_points[name] = points
+    end
+  end
+  players_with_points.max_by{|player, points| points}[0]
+end
+
+#Helper function is given a hash with all info on a team and returns sum of all points
+def sum_points(team_hash)
+  point_total = 0
+  team_hash[:players].each do |individual_players|
+    point_total += individual_players[:points]
+  end
+  point_total
+end
+
+def winning_team
+  if sum_points(game_hash[:home]) > sum_points(game_hash[:away])
+    return game_hash[:home][:team_name]
+  end
+  game_hash[:away][:team_name]
+end
+
+#Helper function returns array with all player names
+def player_names
+  all_names = []
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      all_names << individual_players[:player_name]
+    end
+  end
+  all_names
+end
+
+def player_with_longest_name
+  names = player_names
+  names.max {|a, b| a.length <=> b.length }
+end
+
+def most_steals
+  players_with_steals = {}
+  game_hash.each do |home_away, team|
+    team[:players].each do |individual_players|
+      name = individual_players[:player_name]
+      steals = individual_players[:steals]
+      players_with_steals[name] = steals
+    end
+  end
+  players_with_steals.max_by{|player, points| points}[0]
+end
+
+def long_name_steals_a_ton?
+  most_steals== player_with_longest_name
+end
