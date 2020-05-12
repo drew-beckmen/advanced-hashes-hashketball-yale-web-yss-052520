@@ -261,7 +261,7 @@ def most_steals
     team[:players].each do |individual_players|
       name = individual_players[:player_name]
       steals = individual_players[:steals]
-      players_with_points[name] = steals
+      players_with_steals[name] = steals
     end
   end
   players_with_steals.max_by{|player, points| points}[0]
