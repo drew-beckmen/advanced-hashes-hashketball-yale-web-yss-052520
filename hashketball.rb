@@ -127,29 +127,27 @@ def game_hash
   }
 end
 
+# Auxiliary method creates a new array where each entry is a hash describing each player
+def join_teams
+  game_hash.values.map do |team_hash|
+    team_hash[:players]
+  end.flatten
+end
+
+# Auxiliary method returns a hash corresponding to a single player
+def get_player(name)
+  join_teams.find do |player|
+    player[:player_name] == name 
+  end 
+end 
+
 # Write code here
-def num_points_scored(player_name)
-  game_hash.each do |key, value|
-    value.each do |attribute, val|
-      if attribute == :players
-        val.each do |player|
-          if player[:player_name] == player_name
-            return player[:points]
-          end
-        end
-      end
-    end
-  end
+def num_points_scored(name)
+  get_player(name)[:points]
 end
 
 def shoe_size(name)
-  game_hash.each do |team, attributes|
-    attributes[:players].each do |player|
-      if player[:player_name] == name
-        return player[:shoe]
-      end
-    end
-  end
+  get_player(name)[:shoe]
 end
 
 def team_colors(team_name)
@@ -168,6 +166,7 @@ def team_names
 end
 
 # Define a helper method to extract player numbers given an array of hashes
+# where each hash corresponds to a single player. 
 def get_number(player)
   players = []
   (0...player.size).each do |i|
@@ -185,42 +184,50 @@ def player_numbers(name)
 end
 
 def player_stats(name)
-  game_hash.each do |home_away, team|
-    team[:players].each do |individual_players|
-      if individual_players[:player_name] == name
-        return individual_players
-      end
-    end
-  end
+  get_player(name)
 end
+
+
+# Some more verbose code I used previously for largest_shoe_size
+  # players_with_shoe = {}
+  # game_hash.each do |home_away, team|
+  #   team[:players].each do |individual_players|
+  #     name = individual_players[:player_name]
+  #     shoe = individual_players[:shoe]
+  #     players_with_shoe[name] = shoe
+  #   end
+  # end
+  # players_with_shoe.max_by{|player, shoe| shoe}[0]
 
 # Return player name with largest shoe size
 def largest_shoe_size
-  players_with_shoe = {}
-  game_hash.each do |home_away, team|
-    team[:players].each do |individual_players|
-      name = individual_players[:player_name]
-      shoe = individual_players[:shoe]
-      players_with_shoe[name] = shoe
-    end
-  end
-  players_with_shoe.max_by{|player, shoe| shoe}[0]
+  biggest_shoe = join_teams.max_by do |player|
+    player[:shoe]
+  end 
+  biggest_shoe[:player_name]
 end
 
 def big_shoe_rebounds
   player_stats(largest_shoe_size)[:rebounds]
 end
 
+
+# Some more verbose code I used previously for most_points_scored
+  # players_with_points = {}
+  # game_hash.each do |home_away, team|
+  #   team[:players].each do |individual_players|
+  #     name = individual_players[:player_name]
+  #     points = individual_players[:points]
+  #     players_with_points[name] = points
+  #   end
+  # end
+  # players_with_points.max_by{|player, points| points}[0]
+
 def most_points_scored
-  players_with_points = {}
-  game_hash.each do |home_away, team|
-    team[:players].each do |individual_players|
-      name = individual_players[:player_name]
-      points = individual_players[:points]
-      players_with_points[name] = points
-    end
+  most_points = join_teams.max_by do  |player|
+    player[:points]
   end
-  players_with_points.max_by{|player, points| points}[0]
+  most_points[:player_name]
 end
 
 #Helper function is given a hash with all info on a team and returns sum of all points
@@ -241,13 +248,9 @@ end
 
 #Helper function returns array with all player names
 def player_names
-  all_names = []
-  game_hash.each do |home_away, team|
-    team[:players].each do |individual_players|
-      all_names << individual_players[:player_name]
-    end
+  join_teams.map do |player|
+    player[:player_name]
   end
-  all_names
 end
 
 def player_with_longest_name
@@ -256,15 +259,10 @@ def player_with_longest_name
 end
 
 def most_steals
-  players_with_steals = {}
-  game_hash.each do |home_away, team|
-    team[:players].each do |individual_players|
-      name = individual_players[:player_name]
-      steals = individual_players[:steals]
-      players_with_steals[name] = steals
-    end
-  end
-  players_with_steals.max_by{|player, points| points}[0]
+  steals = join_teams.max_by do |player|
+    player[:steals]
+  end 
+  biggest_shoe[:steals]
 end
 
 def long_name_steals_a_ton?
